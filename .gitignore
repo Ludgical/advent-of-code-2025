@@ -32,5 +32,5 @@ bin/
 .DS_Store
 
 src/*/*.txt
-src/Advent of Code 2025.iml
+Advent of Code 2025.iml
 .idea
