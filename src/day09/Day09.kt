@@ -48,7 +48,6 @@ fun part2(redTiles: Array<Pair<Int, Int>>, redTilePairs: MutableList<Pair<Pair<I
         val maxY = max(rectCorners.first.second, rectCorners.second.second)
         val minY = min(rectCorners.first.second, rectCorners.second.second)
 
-
         var passedThroughGreen = false
 
         val tileIndex = redTiles.indexOf(rectCorners.first) + 1 % redTiles.size
@@ -56,54 +55,38 @@ fun part2(redTiles: Array<Pair<Int, Int>>, redTilePairs: MutableList<Pair<Pair<I
 
         for (redTileIndex in tileIndex..tileIndex + redTiles.size) {
             val redTile = redTiles[redTileIndex % redTiles.size]
-            val xDiff = redTile.first - prevTile.first
-            val yDiff = redTile.second - prevTile.second
 
-            if (xDiff > 0 && redTile.first > minX) {
+            if (redTile.first > minX && prevTile.first <= minX) {
                 if (redTile.second in minY + 1..maxY - 1) {
                     passedThroughGreen = true
                     break
                 }
-                else
-                    if (redTile.first >= maxX)
-                        break
             }
-            else if (xDiff < 0 && redTile.first < maxX) {
+            else if (redTile.first < maxX && prevTile.first >= maxX) {
                 if (redTile.second in minY + 1..maxY - 1) {
                     passedThroughGreen = true
                     break
                 }
-                else
-                    if (redTile.first <= minX)
-                        break
             }
 
-            else if (yDiff > 0 && redTile.second > minY) {
+            else if (redTile.second > minY && prevTile.second <= minY) {
                 if (redTile.first in minX + 1..maxX - 1) {
                     passedThroughGreen = true
                     break
                 }
-                else
-                    if (redTile.second >= maxY)
-                        break
             }
-            else if (yDiff < 0 && redTile.second < maxY) {
+            else if (redTile.second < maxY && prevTile.second >= maxY) {
                 if (redTile.first in minX + 1..maxX - 1) {
                     passedThroughGreen = true
                     break
                 }
-                else
-                    if (redTile.second <= minY)
-                        break
             }
 
             prevTile = redTile
         }
 
-        println(rectCorners)
-
         if (!passedThroughGreen)
-            return abs((rectCorners.first.first - rectCorners.second.first + 1L) * (rectCorners.first.second - rectCorners.second.second + 1))
+            return (abs(rectCorners.first.first - rectCorners.second.first) + 1L) * (abs(rectCorners.first.second - rectCorners.second.second) + 1L)
     }
 
     return -1
