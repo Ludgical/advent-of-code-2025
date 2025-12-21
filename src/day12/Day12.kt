@@ -19,7 +19,7 @@ fun main() {
             shapes.add(mutableListOf())
             val shapeIndex = lines[index][0].digitToInt()
             var shape = Array(3) { i -> lines[index + i + 1].toCharArray() }.map { arr -> arr.map { it == '#' }.toBooleanArray() }.toTypedArray()
-            for (i in 1..4) {
+            repeat (4) {
                 val rotated = rotate(shape)
                 shapes[shapeIndex].add(rotated)
                 shapes[shapeIndex].add(flip(rotated))
@@ -75,7 +75,6 @@ fun main() {
     val arrShapes = shapes.map { a -> a.map { b -> b }.toTypedArray() }.toTypedArray()
 
     println(part1(arrShapes, regions, quantities))
-    println(part2(arrShapes, regions, quantities))
 }
 
 fun deepEquals(first: Array<BooleanArray>, other: Array<BooleanArray>): Boolean {
@@ -149,10 +148,6 @@ fun part1(shapes: Array<Array<Array<BooleanArray>>>, regions: MutableList<Pair<I
     }
 
     return amount
-}
-
-fun part2(shapes: Array<Array<Array<BooleanArray>>>, regions: MutableList<Pair<Int, Int>>, quantities: MutableList<IntArray>): Long {
-    return 0
 }
 
 fun allShapesFit(shapes: Array<Array<Array<BooleanArray>>>, region: Array<BooleanArray>, quantities: IntArray): Boolean {
